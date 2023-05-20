@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
   async create(data: CreateUserDTO) {
-    return await this.prisma.users.create({
+    return await this.prisma.user.create({
       data,
     });
   }
