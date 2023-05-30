@@ -10,6 +10,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDTO } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,6 +19,11 @@ export class UsersController {
   @Post()
   create(@Body() data: CreateUserDTO) {
     return this.usersService.create(data);
+  }
+
+  @Post('session')
+  login(@Body() data: UserDTO) {
+    return this.usersService.login(data);
   }
 
   @Get()

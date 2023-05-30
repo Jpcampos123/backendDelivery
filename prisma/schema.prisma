@@ -7,48 +7,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-
-  id String @id @default(uuid())
-  name String
-  email String
-  password String
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  password   String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
   @@map("users")
 }
 
-
-model Category{
-
-  id String @id @default(uuid())
-  name String
+model Category {
+  id         String    @id @default(uuid())
+  name       String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  products   Product[]
 
   @@map("categories")
-  products Product[]
 }
 
-model Product{
-
-  id String @id @default(uuid())
-  name String
-  price String
+model Product {
+  id          String    @id @default(uuid())
+  name        String
+  price       String
+  serve       Int
+  like        Boolean   @default(false)
   description String
-  banner String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  banner      String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
 
   category Category @relation(fields: [category_id], references: [id])
 
-  @@map("products")
-
   category_id String
-  
 
-
+  @@map("products")
 }
-
-

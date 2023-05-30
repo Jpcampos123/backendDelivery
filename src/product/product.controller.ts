@@ -17,7 +17,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileService } from 'src/file/file.service';
 import { join } from 'path';
-import { query } from 'express';
+
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('product')
 export class ProductController {
@@ -32,18 +33,43 @@ export class ProductController {
     @Body() data: CreateProductDto,
     @UploadedFile() photo: Express.Multer.File,
   ) {
+    const myuuid = uuidv4();
     const path = join(
       __dirname,
       '..',
       '..',
-      'storage',
-      'produto',
-      `${data.name}${data.category_id}.png`,
-    );
+      'client',
 
-    data.banner = `${data.name}${data.category_id}.png`;
+      `${myuuid}${data.category_id}.png`.replace(/\s+/g, '-'),
+    );
+    //
+    data.banner = `${myuuid}${data.category_id}.png`.replace(/\s+/g, '-');
     return (
       this.productService.create(data) && this.fileService.upload(photo, path)
+    );
+  }
+
+  @UseInterceptors(FileInterceptor('banner'))
+  @Patch(':id')
+  async update(
+    @Body() data: UpdateProductDto,
+    @Param('id') id: string,
+    @UploadedFile() photo: Express.Multer.File,
+  ) {
+    const myuuid = uuidv4();
+    const path = join(
+      __dirname,
+      '..',
+      '..',
+      'client',
+
+      `${myuuid}${data.category_id}.png`.replace(/\s+/g, '-'),
+    );
+    //
+    data.banner = `${myuuid}${data.category_id}.png`.replace(/\s+/g, '-');
+    return (
+      this.productService.update(id, data) &&
+      this.fileService.upload(photo, path)
     );
   }
 
@@ -70,10 +96,10 @@ export class ProductController {
     return this.productService.findByCategory(category_id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
-  }
+  // @Patch(':id')
+  // async update(@Param('id') id: string, @Body() data: UpdateProductDto) {
+  //   return this.productService.update(id, data);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
