@@ -1,9 +1,12 @@
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
+import { Role } from 'src/enums/role.enum';
 
 export class CreateAuthDto {
   @IsNotEmpty()
@@ -22,4 +25,8 @@ export class CreateAuthDto {
     minSymbols: 1,
   })
   password: string;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: number;
 }

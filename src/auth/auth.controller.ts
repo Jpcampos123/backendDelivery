@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import { VerifyAuthDto } from './dto/verify-auth.dto';
 import { User } from '@prisma/client';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/enums/role.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -27,28 +31,36 @@ export class AuthController {
     return await this.authService.login(data);
   }
 
+  @UseGuards(AuthGuard)
   @Post('me')
-  async me(@Body() body) {
-    return await this.authService.checkToken(body.token);
+  async me(@Req() req) {
+    return { me: 'ok', payLoad: req.tokenPayload };
+    // , data: req.user
   }
 
+  @Roles(Role.Admin)
   @Get()
   findAll() {
     return this.authService.findAll();
   }
-
+  @Roles(Role.Admin)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.authService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
     return this.authService.update(+id, updateAuthDto);
   }
-
+  @Roles(Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
+  }
+
+  @Post('forget')
+  async forget(@Body() data) {
+    return this.authService.forget(data.email);
   }
 }

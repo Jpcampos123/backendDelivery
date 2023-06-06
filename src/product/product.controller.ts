@@ -10,6 +10,10 @@ import {
   UseInterceptors,
   UploadedFile,
   Query,
+  UseGuards,
+  ParseFilePipe,
+  FileTypeValidator,
+  MaxFileSizeValidator,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -19,8 +23,10 @@ import { FileService } from 'src/file/file.service';
 import { join } from 'path';
 
 import { v4 as uuidv4 } from 'uuid';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('product')
+@UseGuards(AuthGuard)
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
@@ -31,7 +37,16 @@ export class ProductController {
   @Post()
   create(
     @Body() data: CreateProductDto,
-    @UploadedFile() photo: Express.Multer.File,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/png' }),
+          new FileTypeValidator({ fileType: 'image/jpeg' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 100 }),
+        ],
+      }),
+    )
+    photo: Express.Multer.File,
   ) {
     const myuuid = uuidv4();
     const path = join(
