@@ -14,7 +14,6 @@ export class CreateProductDto {
   @IsString()
   banner: string;
 
-  
   @IsNotEmpty()
   @IsNumber()
   category_id: string;
