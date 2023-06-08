@@ -45,6 +45,12 @@ export class ItemsService {
     return { item };
   }
 
+  async findByOrder(order_id: string) {
+    return await this.prismaService.item.findMany({
+      where: { order_id },
+    });
+  }
+
   async update(id: string, data: UpdateItemDto) {
     const findItem = await this.prismaService.item.findUnique({
       where: { id },

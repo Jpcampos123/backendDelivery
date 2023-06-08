@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
@@ -31,6 +32,11 @@ export class ItemsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.itemsService.findOne(id);
+  }
+
+  @Get('order/item')
+  async findByOrder(@Query('order_id') order_id: string) {
+    return await this.itemsService.findByOrder(order_id);
   }
 
   @Patch(':id')
