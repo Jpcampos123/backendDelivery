@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { OrderModule } from './order/order.module';
+import { ItemsModule } from './items/items.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -41,6 +42,7 @@ import { OrderModule } from './order/order.module';
       },
     }),
     OrderModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

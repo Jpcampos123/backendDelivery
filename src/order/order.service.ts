@@ -21,6 +21,7 @@ export class OrderService {
         data: {
           name: data.name,
           user_id: data.id,
+          status: 'Pedido Enviado',
         },
       });
     }
@@ -69,8 +70,46 @@ export class OrderService {
     return { order };
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, data: UpdateOrderDto) {
+    const order = await this.prismaService.order.update({
+      data,
+      where: { id },
+    });
+    if (!order) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Não existem Pedidos',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: new Error(),
+        },
+      );
+    }
+
+    return { order };
+  }
+
+  async updateDraft(id: string, data: UpdateOrderDto) {
+    const order = await this.prismaService.order.update({
+      data,
+      where: { id },
+    });
+    if (!order) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Não existem Pedidos',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: new Error(),
+        },
+      );
+    }
+
+    return { order };
   }
 
   remove(id: number) {
