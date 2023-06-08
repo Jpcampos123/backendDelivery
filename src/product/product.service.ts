@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -9,9 +9,15 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data) {
-    return await this.prisma.product.create({
+    const product = await this.prisma.product.create({
       data,
     });
+
+    if (!product) {
+      throw new UnauthorizedException('Produto não criado');
+    }
+
+    return { product };
   }
 
   findAll() {

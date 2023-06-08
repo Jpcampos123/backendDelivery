@@ -34,7 +34,7 @@ model Product {
   id          String    @id @default(uuid())
   name        String
   price       String
-  serve       Int
+  serve       String
   like        Boolean   @default(false)
   description String
   banner      String

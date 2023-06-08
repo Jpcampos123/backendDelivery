@@ -40,9 +40,9 @@ export class ProductController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new FileTypeValidator({ fileType: 'image/png' }),
-          new FileTypeValidator({ fileType: 'image/jpeg' }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 100 }),
+          new FileTypeValidator({ fileType: 'image/*' }),
+          // new FileTypeValidator({ fileType: 'image/jpeg' }),
+          new MaxFileSizeValidator({ maxSize: 1024 * 1000 }),
         ],
       }),
     )
