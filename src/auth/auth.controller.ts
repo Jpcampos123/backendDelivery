@@ -38,12 +38,11 @@ export class AuthController {
     // , data: req.user
   }
 
-  @Roles(Role.Admin)
   @Get()
   findAll() {
     return this.authService.findAll();
   }
-  @Roles(Role.Admin)
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.authService.findOne(id);
@@ -53,7 +52,7 @@ export class AuthController {
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
     return this.authService.update(+id, updateAuthDto);
   }
-  @Roles(Role.Admin)
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);

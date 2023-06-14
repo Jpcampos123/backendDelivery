@@ -13,6 +13,7 @@ import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { ItemGuard } from 'src/guards/item.guard';
 
 @Controller('items')
 @UseGuards(AuthGuard)
@@ -34,6 +35,7 @@ export class ItemsController {
     return this.itemsService.findOne(id);
   }
 
+  @UseGuards(ItemGuard)
   @Get('order/item')
   async findByOrder(@Query('order_id') order_id: string) {
     return await this.itemsService.findByOrder(order_id);

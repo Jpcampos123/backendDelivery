@@ -12,6 +12,7 @@ import {
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { OrderGuard } from 'src/guards/order.guard';
 
 @Controller('order')
 @UseGuards(AuthGuard)
@@ -37,7 +38,7 @@ export class OrderController {
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(id);
   }
-
+  @UseGuards(OrderGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() data: UpdateOrderDto) {
     return this.orderService.update(id, data);

@@ -3,10 +3,12 @@ import {
   HttpStatus,
   Injectable,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ItemGuard } from 'src/guards/item.guard';
 
 @Injectable()
 export class ItemsService {

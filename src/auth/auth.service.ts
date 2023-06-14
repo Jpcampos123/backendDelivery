@@ -91,7 +91,13 @@ export class AuthService {
     //   },
     // );
 
-    return { id: user.id, name: user.name, email: user.email, token: token };
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      token: token,
+      phone: user.phone,
+    };
   }
 
   async checkToken(token: string) {

@@ -71,6 +71,11 @@ export class OrderService {
   }
 
   async update(id: string, data: UpdateOrderDto) {
+    // const verify = await this.findOne(id);
+
+    // verify.order.user_id;
+
+    // console.log(verify);
     const order = await this.prismaService.order.update({
       data,
       where: { id },

@@ -17,6 +17,14 @@ export class CreateAuthDto {
   @IsEmail()
   email: string;
 
+  @IsOptional()
+  @IsString()
+  photo: string;
+
+  @IsOptional()
+  @IsString()
+  phone: string;
+
   @IsStrongPassword({
     minLength: 6,
     minNumbers: 0,
