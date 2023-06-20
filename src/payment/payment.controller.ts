@@ -22,7 +22,7 @@ export class PaymentController {
   ) {}
 
   @Post()
-  async create(@Body() data: CreatePaymentDto[]) {
+  async create(@Body() data: CreatePaymentDto): Promise<CreatePaymentDto> {
     try {
       const preferenceId = await this.mercadoPagoService.createPreference(data);
       return preferenceId;
