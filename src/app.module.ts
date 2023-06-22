@@ -12,6 +12,8 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { OrderModule } from './order/order.module';
 import { ItemsModule } from './items/items.module';
 import { PaymentModule } from './payment/payment.module';
+import { ListpreferenceModule } from './listpreference/listpreference.module';
+import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado-pago.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -45,6 +47,8 @@ import { PaymentModule } from './payment/payment.module';
     OrderModule,
     ItemsModule,
     PaymentModule,
+    ListpreferenceModule,
+    PaymentMercadoPagoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

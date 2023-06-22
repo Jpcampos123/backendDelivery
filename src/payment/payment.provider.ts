@@ -29,5 +29,24 @@ export class MercadoPagoService {
     }
   }
 
+  async listPreference(id: string): Promise<any> {
+    try {
+      const response = await mercadopago.preferences.get(id);
+
+      return response.body;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  async listPayment(id: string): Promise<any> {
+    try {
+      const response = await mercadopago.payment.get(id);
+      return response.body;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
   //   async listPreference(res): Promise<any> {}
 }
