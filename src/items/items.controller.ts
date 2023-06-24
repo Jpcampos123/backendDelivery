@@ -12,8 +12,9 @@ import {
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
 import { ItemGuard } from 'src/guards/item.guard';
+import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('items')
 @UseGuards(AuthGuard)
@@ -21,8 +22,9 @@ export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
   @Post()
-  create(@Body() data: CreateItemDto) {
+  create(@Body() data: CreateItemDto[]) {
     return this.itemsService.create(data);
+    // return console.log(data);
   }
 
   @Get()
@@ -41,10 +43,10 @@ export class ItemsController {
     return await this.itemsService.findByOrder(order_id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() data: UpdateItemDto) {
-    return this.itemsService.update(id, data);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() data: UpdateItemDto) {
+  //   return this.itemsService.update(id, data);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

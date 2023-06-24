@@ -13,8 +13,10 @@ import { ItemGuard } from 'src/guards/item.guard';
 @Injectable()
 export class ItemsService {
   constructor(private readonly prismaService: PrismaService) {}
-  async create(data: CreateItemDto) {
-    const item = await this.prismaService.item.create({ data });
+  async create(data: CreateItemDto[]) {
+    const item = await this.prismaService.item.createMany({
+      data,
+    });
 
     if (!item) {
       throw new UnauthorizedException('Item não criado');
@@ -53,31 +55,31 @@ export class ItemsService {
     });
   }
 
-  async update(id: string, data: UpdateItemDto) {
-    const findItem = await this.prismaService.item.findUnique({
-      where: { id },
-    });
+  // async update(id: string, data: UpdateItemDto) {
+  //   const findItem = await this.prismaService.item.findUnique({
+  //     where: { id },
+  //   });
 
-    if (!findItem) {
-      throw new HttpException(
-        {
-          status: HttpStatus.FORBIDDEN,
-          error: 'Item não encontrado',
-        },
-        HttpStatus.FORBIDDEN,
-        {
-          cause: new Error(),
-        },
-      );
-    }
+  //   if (!findItem) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.FORBIDDEN,
+  //         error: 'Item não encontrado',
+  //       },
+  //       HttpStatus.FORBIDDEN,
+  //       {
+  //         cause: new Error(),
+  //       },
+  //     );
+  //   }
 
-    const item = await this.prismaService.item.update({
-      data,
-      where: { id },
-    });
+  //   const item = await this.prismaService.item.update({
+  //     data,
+  //     where: { id },
+  //   });
 
-    return { item };
-  }
+  //   return { item };
+  // }
 
   async remove(id: string) {
     return await this.prismaService.item.delete({

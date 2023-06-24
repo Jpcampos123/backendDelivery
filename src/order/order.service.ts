@@ -17,15 +17,15 @@ export class OrderService {
     }
 
     if (data.name) {
-      await this.prismaService.order.create({
+      const Order = await this.prismaService.order.create({
         data: {
           name: data.name,
           user_id: data.id,
           status: 'Pedido Enviado',
         },
       });
+      return Order;
     }
-    return true;
   }
 
   async findAll(data) {

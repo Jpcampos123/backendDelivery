@@ -2,25 +2,26 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  UnauthorizedException,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class OrderCheckGuard implements CanActivate {
   constructor(private readonly authService: AuthService) {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    const { authorization } = request.headers;
+    const token = request.body.Headers.Authorization;
 
     try {
-      console.log(authorization);
+      // console.log(token);
       const data = await this.authService.checkToken(
-        (authorization ?? '').split(' ')[1],
+        (token ?? '').split(' ')[1],
       );
       request.tokenPayload = data;
+
+      //   console.log(request);
 
       //   request.user = await this.authService.findOne(data.id);
       return true;
@@ -36,20 +37,5 @@ export class AuthGuard implements CanActivate {
         },
       );
     }
-
-    // try {
-    //   const data: any = this.authService.checkToken(
-    //     (request.authorization ?? '').split(' ')[1],
-    //   );
-
-    //   request.tokenPayload = data;
-
-    //   request.user = this.authService.findOne(data.id);
-
-    //   console.log(data.id);
-    //   return true;
-    // } catch (e) {
-    //   return false;
-    // }
   }
 }

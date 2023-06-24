@@ -13,15 +13,18 @@ import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { OrderGuard } from 'src/guards/order.guard';
+import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
 
 @Controller('order')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
+@UseGuards(OrderCheckGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
   createOrder(@Req() req) {
     return this.orderService.createOrder(req.tokenPayload);
+    // return req.tokenPayload;
   }
 
   // @Post('add')
