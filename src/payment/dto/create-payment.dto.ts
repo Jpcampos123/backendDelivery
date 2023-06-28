@@ -69,4 +69,8 @@ export class CreatePaymentDto {
   @IsNotEmpty()
   @IsString()
   auto_return: string;
+
+  @IsNotEmpty()
+  @IsString()
+  product_id: string;
 }

@@ -55,31 +55,31 @@ export class ItemsService {
     });
   }
 
-  // async update(id: string, data: UpdateItemDto) {
-  //   const findItem = await this.prismaService.item.findUnique({
-  //     where: { id },
-  //   });
+  async update(id: string, data: UpdateItemDto) {
+    const findItem = await this.prismaService.item.findUnique({
+      where: { id },
+    });
 
-  //   if (!findItem) {
-  //     throw new HttpException(
-  //       {
-  //         status: HttpStatus.FORBIDDEN,
-  //         error: 'Item não encontrado',
-  //       },
-  //       HttpStatus.FORBIDDEN,
-  //       {
-  //         cause: new Error(),
-  //       },
-  //     );
-  //   }
+    if (!findItem) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Item não encontrado',
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: new Error(),
+        },
+      );
+    }
 
-  //   const item = await this.prismaService.item.update({
-  //     data,
-  //     where: { id },
-  //   });
+    const item = await this.prismaService.item.update({
+      data,
+      where: { id },
+    });
 
-  //   return { item };
-  // }
+    return { item };
+  }
 
   async remove(id: string) {
     return await this.prismaService.item.delete({

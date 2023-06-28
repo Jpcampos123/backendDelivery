@@ -43,10 +43,10 @@ export class ItemsController {
     return await this.itemsService.findByOrder(order_id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() data: UpdateItemDto) {
-  //   return this.itemsService.update(id, data);
-  // }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() data: UpdateItemDto) {
+    return this.itemsService.update(id, data);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
