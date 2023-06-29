@@ -19,6 +19,10 @@ export class ItemsDto {
   @IsNotEmpty()
   @IsNumber()
   unit_price: number;
+
+  @IsNotEmpty()
+  @IsString()
+  category_id: string;
 }
 
 export class PayerDto {
@@ -69,8 +73,4 @@ export class CreatePaymentDto {
   @IsNotEmpty()
   @IsString()
   auto_return: string;
-
-  @IsNotEmpty()
-  @IsString()
-  product_id: string;
 }

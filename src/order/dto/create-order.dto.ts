@@ -7,6 +7,10 @@ export class CreateOrderDto {
 
   @IsNotEmpty()
   @IsString()
+  user_id: string;
+
+  @IsNotEmpty()
+  @IsString()
   name: string;
 
   @IsNotEmpty()

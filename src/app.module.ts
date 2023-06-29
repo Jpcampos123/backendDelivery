@@ -14,6 +14,7 @@ import { ItemsModule } from './items/items.module';
 import { PaymentModule } from './payment/payment.module';
 import { ListpreferenceModule } from './listpreference/listpreference.module';
 import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado-pago.module';
+import { DatabasePaymentsModule } from './database-payments/database-payments.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -49,6 +50,7 @@ import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado
     PaymentModule,
     ListpreferenceModule,
     PaymentMercadoPagoModule,
+    DatabasePaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

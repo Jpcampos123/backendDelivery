@@ -12,7 +12,7 @@ model User {
   name       String
   email      String    @unique
   phone      String
-  photo      String?    
+  photo      String?
   role       Int       @default(1)
   password   String
   created_at DateTime? @default(now())
@@ -75,12 +75,30 @@ model Item {
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  
+
   order   Order   @relation(fields: [order_id], references: [id])
   product Product @relation(fields: [product_id], references: [id])
 
-  order_id   String
-  product_id String
+  order_id      String
+  product_id    String
+  Payment_Order Payment_Order[]
 
   @@map("items")
+}
+
+model Payment_Order {
+  id String @id
+
+  status_payment    String
+  payment_method    String
+  total_paid_amount Int
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  item Item @relation(fields: [item_id], references: [id])
+
+  item_id String
+
+  @@map("payments")
 }
