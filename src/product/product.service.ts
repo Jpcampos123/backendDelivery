@@ -17,7 +17,7 @@ export class ProductService {
       throw new UnauthorizedException('Produto não criado');
     }
 
-    return { product };
+    return { product: product };
   }
 
   findAll() {

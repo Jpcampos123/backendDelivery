@@ -28,6 +28,7 @@ export class AuthController {
 
   @Post('session')
   async login(@Body() data: User) {
+    
     return await this.authService.login(data);
   }
 

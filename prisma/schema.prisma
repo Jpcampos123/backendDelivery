@@ -65,7 +65,8 @@ model Order {
 
   user_id String
 
-  items Item[]
+  items         Item[]
+  Payment_Order Payment_Order[]
 
   @@map("orders")
 }
@@ -82,14 +83,14 @@ model Item {
 
   order_id      String
   product_id    String
-  Payment_Order Payment_Order[]
+  
 
   @@map("items")
 }
 
 model Payment_Order {
-  id String @id
-
+  id                Int    @id
+  name_payer        String
   status_payment    String
   payment_method    String
   total_paid_amount Int
@@ -97,9 +98,10 @@ model Payment_Order {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  item Item @relation(fields: [item_id], references: [id])
-
-  item_id String
+  
+  order    Order  @relation(fields: [order_id], references: [id])
+  order_id String
+  
 
   @@map("payments")
 }

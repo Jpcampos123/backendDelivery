@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateDatabasePaymentDto } from './dto/create-database-payment.dto';
 import { UpdateDatabasePaymentDto } from './dto/update-database-payment.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,9 +12,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class DatabasePaymentsService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(data: CreateDatabasePaymentDto) {
-    return await this.prismaService.payment_Order.create({
-      data,
-    });
+    try {
+      const pay = await this.prismaService.payment_Order.create({
+        data,
+      });
+      console.log(pay);
+      return pay;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: e.message,
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: new Error(),
+        },
+      );
+    }
   }
 
   findAll() {
