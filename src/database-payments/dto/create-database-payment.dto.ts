@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class CreateDatabasePaymentDto {
   @IsNotEmpty()
-  @IsNumber()
-  id: number;
+  @IsNumberString()
+  id: string;
 
   @IsNotEmpty()
   @IsString()
@@ -18,8 +18,8 @@ export class CreateDatabasePaymentDto {
   payment_method: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  total_paid_amount: number;
+  @IsNumberString()
+  total_paid_amount: string;
 
   @IsNotEmpty()
   @IsString()

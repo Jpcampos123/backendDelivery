@@ -12,24 +12,29 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class DatabasePaymentsService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(data: CreateDatabasePaymentDto) {
-    try {
-      const pay = await this.prismaService.payment_Order.create({
-        data,
-      });
-      console.log(pay);
-      return pay;
-    } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.FORBIDDEN,
-          error: e.message,
-        },
-        HttpStatus.FORBIDDEN,
-        {
-          cause: new Error(),
-        },
-      );
-    }
+    const order = await this.prismaService.payment_Order.create({
+      data,
+    });
+
+    return order;
+    // try {
+    //   const pay = await this.prismaService.payment_Order.create({
+    //     data,
+    //   });
+    //   console.log(pay);
+    //   return pay;
+    // } catch (e) {
+    //   throw new HttpException(
+    //     {
+    //       status: HttpStatus.FORBIDDEN,
+    //       error: e.message,
+    //     },
+    //     HttpStatus.FORBIDDEN,
+    //     {
+    //       cause: new Error(),
+    //     },
+    //   );
+    // }
   }
 
   findAll() {

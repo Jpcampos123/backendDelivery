@@ -89,11 +89,11 @@ model Item {
 }
 
 model Payment_Order {
-  id                Int    @id
+  id                String    @id
   name_payer        String
   status_payment    String
   payment_method    String
-  total_paid_amount Int
+  total_paid_amount String
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
