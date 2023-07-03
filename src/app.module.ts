@@ -16,7 +16,12 @@ import { ListpreferenceModule } from './listpreference/listpreference.module';
 import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado-pago.module';
 import { DatabasePaymentsModule } from './database-payments/database-payments.module';
 import { PrismaModule } from './prisma/prisma.module';
-
+import { AuthGuard } from './guards/auth.guard';
+import { FileModule } from './file/file.module';
+import { OrderGuard } from './guards/order.guard';
+import { ItemGuard } from './guards/item.guard';
+import { OrderCheckGuard } from './guards/orderCheckToken.guard';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -25,6 +30,7 @@ import { PrismaModule } from './prisma/prisma.module';
 
     CategoryModule,
     ProductModule,
+    FileModule,
     AuthModule,
     PrismaModule,
     MailerModule.forRoot({
@@ -48,7 +54,7 @@ import { PrismaModule } from './prisma/prisma.module';
         },
       },
     }),
-    OrderModule,
+    ,
     ItemsModule,
     PaymentModule,
     ListpreferenceModule,
@@ -56,6 +62,13 @@ import { PrismaModule } from './prisma/prisma.module';
     DatabasePaymentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    AuthGuard,
+    OrderGuard,
+    ItemGuard,
+    OrderCheckGuard,
+    OrderModule,
+  ],
 })
 export class AppModule {}
