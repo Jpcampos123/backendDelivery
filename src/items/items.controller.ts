@@ -13,7 +13,6 @@ import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemGuard } from 'src/guards/item.guard';
-import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('items')

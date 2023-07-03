@@ -14,8 +14,6 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { User } from '@prisma/client';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { Roles } from 'src/decorators/role.decorator';
-import { Role } from 'src/enums/role.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -28,7 +26,6 @@ export class AuthController {
 
   @Post('session')
   async login(@Body() data: User) {
-    
     return await this.authService.login(data);
   }
 

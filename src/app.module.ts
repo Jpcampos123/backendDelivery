@@ -16,7 +16,7 @@ import { ListpreferenceModule } from './listpreference/listpreference.module';
 import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado-pago.module';
 import { DatabasePaymentsModule } from './database-payments/database-payments.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { AuthGuard } from './guards/auth.guard';
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -56,6 +56,6 @@ import { AuthGuard } from './guards/auth.guard';
     DatabasePaymentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthGuard],
+  providers: [AppService],
 })
 export class AppModule {}

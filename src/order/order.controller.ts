@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
 import { OrderGuard } from 'src/guards/order.guard';
 import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
 
