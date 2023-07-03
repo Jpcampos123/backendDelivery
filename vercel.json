@@ -17,5 +17,6 @@
                 "DELETE"
             ]
         }
-    ]
+    ],
+    "buildCommand": "next build"
 }
