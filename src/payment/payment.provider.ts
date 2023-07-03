@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import * as mercadopago from 'mercadopago';
 import { CreatePaymentDto } from './dto/create-payment.dto';
+import { env } from 'process';
 
 @Injectable()
 export class MercadoPagoService {
@@ -11,8 +12,9 @@ export class MercadoPagoService {
       //     'APP_USR-6201173609883364-112115-6e46120416ea3877e9f321a9cafa1e5f-262243059',
       // });
 
-      access_token:
-        'TEST-6201173609883364-112115-27ddfb7c2931c859bed9d4c1d05ed265-262243059',
+      access_token: env.access_token,
+
+      // 'TEST-6201173609883364-112115-27ddfb7c2931c859bed9d4c1d05ed265-262243059',
     });
   }
 

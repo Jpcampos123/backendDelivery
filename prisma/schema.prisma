@@ -81,15 +81,14 @@ model Item {
   order   Order   @relation(fields: [order_id], references: [id])
   product Product @relation(fields: [product_id], references: [id])
 
-  order_id      String
-  product_id    String
-  
+  order_id   String
+  product_id String
 
   @@map("items")
 }
 
 model Payment_Order {
-  id                String    @id
+  id                String @id
   name_payer        String
   status_payment    String
   payment_method    String
@@ -98,10 +97,8 @@ model Payment_Order {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  
   order    Order  @relation(fields: [order_id], references: [id])
   order_id String
-  
 
   @@map("payments")
 }

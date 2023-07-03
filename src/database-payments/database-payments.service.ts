@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateDatabasePaymentDto } from './dto/create-database-payment.dto';
 import { UpdateDatabasePaymentDto } from './dto/update-database-payment.dto';
 import { PrismaService } from 'src/prisma/prisma.service';

@@ -26,13 +26,13 @@ export class DatabasePaymentsController {
   }
 
   // {
-  //   "id": "262243059", 
-  //   "status_payment": "pending", 
+  //   "id": "262243059",
+  //   "status_payment": "pending",
   //   "name_payer": null,
   //   "payment_method": "bank_transfer",
   //   "total_paid_amount": 30,
   //   "order_id": "35c524d8-9b71-4422-935d-9e17da188b12"
-    
+
   // }
 
   @Get()

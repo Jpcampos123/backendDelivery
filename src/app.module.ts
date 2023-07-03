@@ -15,6 +15,8 @@ import { PaymentModule } from './payment/payment.module';
 import { ListpreferenceModule } from './listpreference/listpreference.module';
 import { PaymentMercadoPagoModule } from './payment-mercado-pago/payment-mercado-pago.module';
 import { DatabasePaymentsModule } from './database-payments/database-payments.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { AuthGuard } from './guards/auth.guard';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -24,6 +26,7 @@ import { DatabasePaymentsModule } from './database-payments/database-payments.mo
     CategoryModule,
     ProductModule,
     AuthModule,
+    PrismaModule,
     MailerModule.forRoot({
       transport: {
         host: 'smtp-relay.sendinblue.com',
@@ -53,6 +56,6 @@ import { DatabasePaymentsModule } from './database-payments/database-payments.mo
     DatabasePaymentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthGuard],
 })
 export class AppModule {}
