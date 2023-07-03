@@ -18,19 +18,18 @@ import { DatabasePaymentsModule } from './database-payments/database-payments.mo
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthGuard } from './guards/auth.guard';
 import { FileModule } from './file/file.module';
-import { OrderGuard } from './guards/order.guard';
-import { ItemGuard } from './guards/item.guard';
+
 import { OrderCheckGuard } from './guards/orderCheckToken.guard';
-import { APP_GUARD } from '@nestjs/core';
+// import { ItemGuard } from './guards/item.guard';
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
-
+    FileModule,
     CategoryModule,
     ProductModule,
-    FileModule,
     AuthModule,
     PrismaModule,
     MailerModule.forRoot({
@@ -54,7 +53,7 @@ import { APP_GUARD } from '@nestjs/core';
         },
       },
     }),
-    ,
+    OrderModule,
     ItemsModule,
     PaymentModule,
     ListpreferenceModule,
@@ -62,13 +61,6 @@ import { APP_GUARD } from '@nestjs/core';
     DatabasePaymentsModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    AuthGuard,
-    OrderGuard,
-    ItemGuard,
-    OrderCheckGuard,
-    OrderModule,
-  ],
+  providers: [AppService, AuthGuard, OrderCheckGuard],
 })
 export class AppModule {}

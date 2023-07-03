@@ -1,53 +1,50 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { OrderService } from 'src/order/order.service';
+// import {
+//   Injectable,
+//   CanActivate,
+//   ExecutionContext,
+//   UnauthorizedException,
+// } from '@nestjs/common';
 
-@Injectable()
-export class OrderGuard implements CanActivate {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly orderService: OrderService,
-  ) {}
-  async canActivate(context: ExecutionContext) {
-    const request = context.switchToHttp().getRequest();
-    // const { authorization } = request.headers;
+// import { OrderService } from 'src/order/order.service';
 
-    try {
-      const order = await this.orderService.findOne(request.params.id);
+// @Injectable()
+// export class OrderGuard implements CanActivate {
+//   constructor(private readonly orderService: OrderService) {}
+//   async canActivate(context: ExecutionContext) {
+//     const request = context.switchToHttp().getRequest();
+//     // const { authorization } = request.headers;
 
-      // const data = await authorization.split(' ')[1];
+//     try {
+//       const order = await this.orderService.findOne(request.params.id);
 
-      // console.log(
-      //   request.tokenPayload.id,
-      //   '--------------------------------',
-      //   order.order.user_id,
-      // );
-      // console.log(order.order.user_id);
+//       // const data = await authorization.split(' ')[1];
 
-      //   request.user = await this.authService.findOne(data.id);
-      return request.tokenPayload.id == order.order.user_id;
-    } catch (e) {
-      throw new UnauthorizedException(e);
-    }
+//       // console.log(
+//       //   request.tokenPayload.id,
+//       //   '--------------------------------',
+//       //   order.order.user_id,
+//       // );
+//       // console.log(order.order.user_id);
 
-    // try {
-    //   const data: any = this.authService.checkToken(
-    //     (request.authorization ?? '').split(' ')[1],
-    //   );
+//       //   request.user = await this.authService.findOne(data.id);
+//       return request.tokenPayload.id == order.order.user_id;
+//     } catch (e) {
+//       throw new UnauthorizedException(e);
+//     }
 
-    //   request.tokenPayload = data;
+//     // try {
+//     //   const data: any = this.authService.checkToken(
+//     //     (request.authorization ?? '').split(' ')[1],
+//     //   );
 
-    //   request.user = this.authService.findOne(data.id);
+//     //   request.tokenPayload = data;
 
-    //   console.log(data.id);
-    //   return true;
-    // } catch (e) {
-    //   return false;
-    // }
-  }
-}
+//     //   request.user = this.authService.findOne(data.id);
+
+//     //   console.log(data.id);
+//     //   return true;
+//     // } catch (e) {
+//     //   return false;
+//     // }
+//   }
+// }

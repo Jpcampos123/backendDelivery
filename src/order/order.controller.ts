@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { OrderGuard } from 'src/guards/order.guard';
+// import { OrderGuard } from 'src/guards/order.guard';
 import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
 
 @Controller('order')
@@ -40,7 +40,7 @@ export class OrderController {
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(id);
   }
-  @UseGuards(OrderGuard)
+  // @UseGuards(OrderGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() data: UpdateOrderDto) {
     return this.orderService.update(id, data);
