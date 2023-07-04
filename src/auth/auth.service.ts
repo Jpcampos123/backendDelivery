@@ -61,7 +61,6 @@ export class AuthService {
   }
 
   async login(data: VerifyAuthDto) {
-   
     const user = await this.prisma.user.findFirst({
       where: {
         email: data.email,
@@ -115,7 +114,7 @@ export class AuthService {
   }
 
   findAll() {
-    return `This action returns all auth`;
+    return this.prisma.user.findMany();
   }
 
   async findOne(id: string) {
@@ -123,7 +122,7 @@ export class AuthService {
       where: { id },
     });
 
-    return { id: data.id, name: data.name, email: data.email };
+    return data;
   }
 
   update(id: number, updateAuthDto: UpdateAuthDto) {
