@@ -8,8 +8,8 @@ import {
 
 export class CreateDatabasePaymentDto {
   @IsNotEmpty()
-  @IsNumberString()
-  id: string;
+  @IsNumber()
+  id: number;
 
   @IsNotEmpty()
   @IsString()
@@ -24,8 +24,8 @@ export class CreateDatabasePaymentDto {
   payment_method: string;
 
   @IsNotEmpty()
-  @IsNumberString()
-  total_paid_amount: string;
+  @IsNumber()
+  total_paid_amount: number;
 
   @IsNotEmpty()
   @IsString()
