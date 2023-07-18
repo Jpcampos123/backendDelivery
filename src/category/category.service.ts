@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -23,8 +23,27 @@ export class CategoryService {
     });
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async update(id: string, data: UpdateCategoryDto) {
+    const category = await this.prisma.category.update({
+      data,
+      where: { id },
+    });
+
+    if (!category) {
+      {
+        throw new HttpException(
+          {
+            status: HttpStatus.FORBIDDEN,
+            error: 'Categoria Não Encontrada',
+          },
+          HttpStatus.FORBIDDEN,
+          {
+            cause: new Error(),
+          },
+        );
+      }
+    }
+    return { category };
   }
 
   remove(id: number) {

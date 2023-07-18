@@ -20,7 +20,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { FileModule } from './file/file.module';
 
 import { OrderCheckGuard } from './guards/orderCheckToken.guard';
+
 // import { ItemGuard } from './guards/item.guard';
+import { SocketTestModule } from './socket-test/socket-test.module';
 
 @Module({
   imports: [
@@ -28,7 +30,9 @@ import { OrderCheckGuard } from './guards/orderCheckToken.guard';
       rootPath: join(__dirname, '..', 'client'),
     }),
     FileModule,
+
     CategoryModule,
+    SocketTestModule,
     ProductModule,
     AuthModule,
     PrismaModule,
@@ -59,6 +63,7 @@ import { OrderCheckGuard } from './guards/orderCheckToken.guard';
     ListpreferenceModule,
     PaymentMercadoPagoModule,
     DatabasePaymentsModule,
+    SocketTestModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard, OrderCheckGuard],
