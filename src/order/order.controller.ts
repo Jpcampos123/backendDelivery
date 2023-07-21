@@ -13,17 +13,32 @@ import { OrderService } from './order.service';
 import { UpdateOrderDto } from './dto/update-order.dto';
 // import { OrderGuard } from 'src/guards/order.guard';
 import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { PusherService } from 'src/pusher/pusher.service';
 
 @Controller('order')
-// @UseGuards(AuthGuard)
-@UseGuards(OrderCheckGuard)
+@UseGuards(AuthGuard)
+// @UseGuards(OrderCheckGuard)
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(
+    private readonly orderService: OrderService,
+    private readonly pusherService: PusherService,
+  ) {}
 
   @Post()
-  createOrder(@Req() req) {
-    return this.orderService.createOrder(req.tokenPayload);
-    // return req.tokenPayload;
+  async createOrder(@Req() req) {
+    const order = await this.orderService.createOrder(req.tokenPayload);
+    if (!order) return;
+
+    // console.log(data);
+    const pusherService = await this.pusherService.triggerEvent(
+      'my-channel',
+      'my-event',
+      { message: true },
+    );
+    if (!pusherService) return;
+    // console.log(pusherService);
+    return order;
   }
 
   // @Post('add')
@@ -34,6 +49,11 @@ export class OrderController {
   @Get()
   findAll(@Req() req) {
     return this.orderService.findAll(req.tokenPayload);
+  }
+
+  @Get('/findAllOrders')
+  async findAllOrders(@Req() req) {
+    return await this.orderService.findAllOrders();
   }
 
   @Get(':id')

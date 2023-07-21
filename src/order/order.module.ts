@@ -5,10 +5,12 @@ import { AuthModule } from 'src/auth/auth.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 import { OrderCheckGuard } from 'src/guards/orderCheckToken.guard';
+import { PusherModule } from 'src/pusher/pusher.module';
+import { PusherService } from 'src/pusher/pusher.service';
 
 @Module({
-  imports: [AuthModule, PrismaModule],
+  imports: [AuthModule, PrismaModule, PusherModule],
   controllers: [OrderController],
-  providers: [OrderService, OrderCheckGuard],
+  providers: [OrderService, OrderCheckGuard, PusherService],
 })
 export class OrderModule {}

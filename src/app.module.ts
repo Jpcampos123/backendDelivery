@@ -23,6 +23,7 @@ import { OrderCheckGuard } from './guards/orderCheckToken.guard';
 
 // import { ItemGuard } from './guards/item.guard';
 import { SocketTestModule } from './socket-test/socket-test.module';
+import { PusherModule } from './pusher/pusher.module';
 
 @Module({
   imports: [
@@ -64,6 +65,7 @@ import { SocketTestModule } from './socket-test/socket-test.module';
     PaymentMercadoPagoModule,
     DatabasePaymentsModule,
     SocketTestModule,
+    PusherModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard, OrderCheckGuard],

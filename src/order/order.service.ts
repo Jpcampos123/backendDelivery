@@ -49,6 +49,14 @@ export class OrderService {
     return { orders };
   }
 
+  async findAllOrders() {
+    return await this.prismaService.order.findMany({
+      orderBy: {
+        created_at: { sort: 'desc', nulls: 'last' },
+      },
+    });
+  }
+
   async findOne(id: string) {
     const order = await this.prismaService.order.findUnique({
       where: {

@@ -4,10 +4,12 @@ import { CategoryController } from './category.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { PusherModule } from 'src/pusher/pusher.module';
+import { PusherService } from 'src/pusher/pusher.service';
 
 @Module({
-  imports: [PrismaModule, AuthModule],
+  imports: [PrismaModule, AuthModule, PusherModule],
   controllers: [CategoryController],
-  providers: [CategoryService, AuthGuard],
+  providers: [CategoryService, AuthGuard, PusherService],
 })
 export class CategoryModule {}
